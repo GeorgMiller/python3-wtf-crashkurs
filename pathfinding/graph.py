@@ -5,15 +5,15 @@ class Graph:
     def __init__(self):
         self.graph_dict = {}
 
-    def add_vertex(self, from_node, to_node, distance, out_vector, in_vector):
+    def add_edge(self, from_node, to_node, distance, out_vector, in_vector):
         if from_node in self.graph_dict:
             self.graph_dict[from_node][to_node] = {"out": out_vector, "in": in_vector, "d": distance}
         else:
             self.graph_dict[from_node] = {to_node: {"out": out_vector, "in": in_vector, "d": distance}}
 
-    def add_binary_vertex(self, from_node, to_node, distance, out_vector, in_vector):
-        self.add_vertex(from_node, to_node, distance, out_vector, in_vector)
-        self.add_vertex(to_node, from_node, distance, in_vector, out_vector)
+    def add_binary_edge(self, from_node, to_node, distance, out_vector, in_vector):
+        self.add_edge(from_node, to_node, distance, out_vector, in_vector)
+        self.add_edge(to_node, from_node, distance, in_vector, out_vector)
 
     def dijkstra(self, src, dest, visited=[], distances={}, predecessors={}):
         if visited is None:
@@ -57,8 +57,8 @@ if __name__ == "__main__":
 
     graph = Graph()
 
-    graph.add_binary_vertex("s", "a", 1, 90, 0)
-    graph.add_binary_vertex("a", "b", 2, 270, 180)
+    graph.add_binary_edge("s", "a", 1, 90, 0)
+    graph.add_binary_edge("a", "b", 2, 270, 180)
 
     path, in_directions, out_directions, distance = graph.dijkstra("s", "b")
 
