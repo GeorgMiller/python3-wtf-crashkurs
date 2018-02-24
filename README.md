@@ -7,3 +7,5 @@ This is the repository for the python3.wtf crashkurs at TU Dresden in preparatio
 - [iFSR Materials](http://fsr.github.io/python-lessons/materials.html)
 
 - [python3.wtf Crashkurs Homepage](https://python3.wtf/l/crashkurs/)
+
+- [Official Robolab Docs](http://robolab.inf.tu-dresden.de/dev/python/)
