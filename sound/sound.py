@@ -6,7 +6,7 @@ import ev3dev.ev3 as ev3
 class Sound:
     
     @staticmethod
-    def star_wars():
+    def play_star_wars():
         ev3.Sound.tone([
             (392, 350, 100), (392, 350, 100), (392, 350, 100), (311.1, 250, 100),
             (466.2, 25, 100), (392, 350, 100), (311.1, 250, 100), (466.2, 25, 100),
