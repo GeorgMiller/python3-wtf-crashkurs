@@ -25,14 +25,15 @@ else:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
 
+
 class KeyboardControl:
-    def __init__(self):
+    def __init__(self, motor_right=ev3.LargeMotor("outA"), motor_left=ev3.LargeMotor("outD")):
         # Define motor outlets here
-        self.motor_right = ev3.LargeMotor("outA")
+        self.motor_right = motor_right
         self.motor_right.stop_action = "brake"
-        self.motor_left = ev3.LargeMotor("outD")
+        self.motor_left = motor_left
         self.motor_left.stop_action = "brake"
-        
+
     def control(self):
         while True:
             if getch() == "q":
@@ -58,7 +59,8 @@ class KeyboardControl:
             if getch() == "x":
                 self.motor_left.run_timed(time_sp=2000, speed_sp=30)
                 self.motor_right.run_timed(time_sp=2000, speed_sp=-30)
-                
+
+
 if __name__ == "__main__":
     keyboard = KeyboardControl()
     keyboard.control()

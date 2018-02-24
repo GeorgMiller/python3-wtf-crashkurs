@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import unittest
 
-from planet import Planet, Coordinate, Path
+from pathfinding.graph import Graph
 
 
 class PlanetTestCase(unittest.TestCase):
     def setUp(self):
-        self.planet = Planet(Coordinate(0, 0, "S"))
+        # Do everything to set up the test
+        pass
 
 
 class FirstPlanet(PlanetTestCase):
@@ -39,46 +40,54 @@ class FirstPlanet(PlanetTestCase):
      """
 
     def test_shortest_path(self):
-        self.planet.add_path(Path(Coordinate(1,1,"E"),Coordinate(2,0,"N")))
-        self.planet.add_path(Path(Coordinate(2,0,"S"),Coordinate(5,0,"S")))
-        self.planet.add_path(Path(Coordinate(4,1,"E"),Coordinate(5,1,"W")))
-        self.planet.add_path(Path(Coordinate(5,0,"N"),Coordinate(5,1,"S")))
-        self.planet.add_path(Path(Coordinate(5,1,"E"),Coordinate(6,1,"W")))
-        self.planet.add_path(Path(Coordinate(6,1,"E"),Coordinate(6,1,"E")))
-        self.planet.add_path(Path(Coordinate(1,1,"W"),Coordinate(0,3,"S")))
-        self.planet.add_path(Path(Coordinate(1,2,"S"),Coordinate(1,1,"N")))
-        self.planet.add_path(Path(Coordinate(4,1,"N"),Coordinate(4,2,"S")))
-        self.planet.add_path(Path(Coordinate(5,1,"N"),Coordinate(5,2,"S")))
-        self.planet.add_path(Path(Coordinate(6,1,"N"),Coordinate(6,5,"S")))
-        self.planet.add_path(Path(Coordinate(1,2,"W"),Coordinate(0,3,"E")))
-        self.planet.add_path(Path(Coordinate(2,3,"W"),Coordinate(3,3,"W")))
-        self.planet.add_path(Path(Coordinate(3,3,"S"),Coordinate(4,2,"W")))
-        self.planet.add_path(Path(Coordinate(3,4,"S"),Coordinate(4,2,"N")))
-        self.planet.add_path(Path(Coordinate(5,2,"W"),Coordinate(5,3,"W")))
-        self.planet.add_path(Path(Coordinate(5,2,"N"),Coordinate(5,3,"S")))
-        self.planet.add_path(Path(Coordinate(5,2,"E"),Coordinate(5,3,"E")))
-        self.planet.add_path(Path(Coordinate(0,3,"N"),Coordinate(1,4,"W")))
-        self.planet.add_path(Path(Coordinate(1,4,"N"),Coordinate(1,5,"S")))
-        self.planet.add_path(Path(Coordinate(2,3,"N"),Coordinate(3,4,"W")))
-        self.planet.add_path(Path(Coordinate(4,4,"E"),Coordinate(5,4,"W")))
-        self.planet.add_path(Path(Coordinate(0,5,"S"),Coordinate(0,5,"S")))
-        self.planet.add_path(Path(Coordinate(0,5,"E"),Coordinate(1,5,"W")))
-        self.planet.add_path(Path(Coordinate(1,5,"E"),Coordinate(2,5,"W")))
-        self.planet.add_path(Path(Coordinate(2,5,"E"),Coordinate(3,4,"N")))
-        self.planet.add_path(Path(Coordinate(3,4,"E"),Coordinate(4,5,"W")))
-        self.planet.add_path(Path(Coordinate(4,4,"N"),Coordinate(4,5,"S")))
-        self.planet.add_path(Path(Coordinate(4,5,"E"),Coordinate(5,5,"W")))
-        self.planet.add_path(Path(Coordinate(5,4,"N"),Coordinate(5,5,"S")))
-        self.planet.add_path(Path(Coordinate(5,4,"S"),Coordinate(5,3,"N")))
-        self.planet.add_path(Path(Coordinate(5,5,"E"),Coordinate(6,5,"W")))
-        self.planet.add_path(Path(Coordinate(6,5,"E"),Coordinate(6,5,"N")))
-        self.planet.add_path(Path(Coordinate(0,5,"N"),Coordinate(1,6,"S")))
-        self.planet.add_path(Path(Coordinate(2,5,"N"),Coordinate(3,6,"S")))
-        self.planet.add_path(Path(Coordinate(5,6,"S"),Coordinate(5,5,"N")))
-        self.planet.add_path(Path(Coordinate(3,6,"E"),Coordinate(5,6,"W")))
-        self.planet.add_path(Path(Coordinate(3,6,"W"),Coordinate(3,6,"W")))
-        self.planet.add_path(Path(Coordinate(3,6,"N"),Coordinate(5,6,"N")))
-        self.planet.add_path(Path(Coordinate(5,6,"E"),Coordinate(6,6,"W")))
+        graph = Graph()
+        graph.add_binary_edge(from_node=(1, 1), in_vector=0, to_node=(2, 0), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(2, 0), in_vector=270, to_node=(5, 0), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(4, 1), in_vector=0, to_node=(5, 1), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(5, 0), in_vector=90, to_node=(5, 1), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(5, 1), in_vector=0, to_node=(6, 1), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(6, 1), in_vector=0, to_node=(6, 1), out_vector=0, distance=10)
+        graph.add_binary_edge(from_node=(1, 1), in_vector=180, to_node=(0, 3), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(1, 2), in_vector=270, to_node=(1, 1), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(4, 1), in_vector=90, to_node=(4, 2), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(5, 1), in_vector=90, to_node=(5, 2), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(6, 1), in_vector=90, to_node=(6, 5), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(1, 2), in_vector=180, to_node=(0, 3), out_vector=0, distance=10)
+        graph.add_binary_edge(from_node=(2, 3), in_vector=180, to_node=(3, 3), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(3, 3), in_vector=270, to_node=(4, 2), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(3, 4), in_vector=270, to_node=(4, 2), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(5, 2), in_vector=180, to_node=(5, 3), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(5, 2), in_vector=90, to_node=(5, 3), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(5, 2), in_vector=0, to_node=(5, 3), out_vector=0, distance=10)
+        graph.add_binary_edge(from_node=(0, 3), in_vector=90, to_node=(1, 4), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(1, 4), in_vector=90, to_node=(1, 5), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(2, 3), in_vector=90, to_node=(3, 4), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(4, 4), in_vector=0, to_node=(5, 4), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(0, 5), in_vector=270, to_node=(0, 5), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(0, 5), in_vector=0, to_node=(1, 5), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(1, 5), in_vector=0, to_node=(2, 5), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(2, 5), in_vector=0, to_node=(3, 4), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(3, 4), in_vector=0, to_node=(4, 5), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(4, 4), in_vector=90, to_node=(4, 5), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(4, 5), in_vector=0, to_node=(5, 5), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(5, 4), in_vector=90, to_node=(5, 5), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(5, 4), in_vector=270, to_node=(5, 3), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(5, 5), in_vector=0, to_node=(6, 5), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(6, 5), in_vector=0, to_node=(6, 5), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(0, 5), in_vector=90, to_node=(1, 6), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(2, 5), in_vector=90, to_node=(3, 6), out_vector=270, distance=10)
+        graph.add_binary_edge(from_node=(5, 6), in_vector=270, to_node=(5, 5), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(3, 6), in_vector=0, to_node=(5, 6), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(3, 6), in_vector=180, to_node=(3, 6), out_vector=180, distance=10)
+        graph.add_binary_edge(from_node=(3, 6), in_vector=90, to_node=(5, 6), out_vector=90, distance=10)
+        graph.add_binary_edge(from_node=(5, 6), in_vector=0, to_node=(6, 6), out_vector=180, distance=10)
+
+        p, in_dir, out_dir, dist = graph.dijkstra((1, 1), (5, 5))
+
+        print("Um vom Punkt (1,1) nach Punkt (5,5) zu gelangen, müssen wir folgenden Weg gehen: {}".format(p))
+        print("Wir müssen dabei die Kreuzungen in folgenden Richtungen befahren: {}".format(in_dir))
+        print("... und in folgenden Richtungen verlassen: {}".format(out_dir))
+        print("Die Distanz zwischen den beiden Punkten beträgt dabei {}.".format(dist))
 
 
 if __name__ == "__main__":

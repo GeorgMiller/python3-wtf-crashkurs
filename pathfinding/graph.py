@@ -25,14 +25,14 @@ class Graph:
         if src == dest:
             path = []
             pred = dest
-            while pred != None:
+            while pred is not None:
                 path.append(pred)
                 pred = predecessors.get(pred, None)
             in_directions = []
             out_directions = []
             if path:
-                for i in range(len(path)-1):
-                    in_directions.append(self.graph_dict[path[i]][path[i+1]]["in"])
+                for i in range(len(path) - 1):
+                    in_directions.append(self.graph_dict[path[i]][path[i + 1]]["in"])
                     out_directions.append(self.graph_dict[path[i]][path[i + 1]]["out"])
             return path, in_directions, out_directions, distances[dest]
         else:
@@ -54,15 +54,14 @@ class Graph:
 
 
 if __name__ == "__main__":
-
     graph = Graph()
 
     graph.add_binary_edge("s", "a", 1, 90, 0)
     graph.add_binary_edge("a", "b", 2, 270, 180)
 
-    path, in_directions, out_directions, distance = graph.dijkstra("s", "b")
+    p, in_dir, out_dir, dist = graph.dijkstra("s", "b")
 
-    print("Um vom Punkt s nach Punkt b zu gelangen, müssen wir folgenden Weg gehen: {}".format(path))
-    print("Wir müssen dabei die Kreuzungen in folgenden Richtungen befahren: {}".format(in_directions))
-    print("... und in folgenden Richtungen verlassen: {}".format(out_directions))
-    print("Die Distanz zwischen den beiden Punkten beträgt dabei {}.".format(distance))
+    print("Um vom Punkt s nach Punkt b zu gelangen, müssen wir folgenden Weg gehen: {}".format(p))
+    print("Wir müssen dabei die Kreuzungen in folgenden Richtungen befahren: {}".format(in_dir))
+    print("... und in folgenden Richtungen verlassen: {}".format(out_dir))
+    print("Die Distanz zwischen den beiden Punkten beträgt dabei {}.".format(dist))

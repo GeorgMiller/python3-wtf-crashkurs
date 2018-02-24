@@ -1,21 +1,20 @@
 import math
 
 import ev3dev.ev3 as ev3
-from planet import Coordinate
 
 
 class Odometry:
-    def __init__(self, coordinate):
+    def __init__(self, coordinate, l_motor=ev3.LargeMotor("outD"), r_motor=ev3.LargeMotor("outA")):
         self.heading = 0
         self.esf = 0.047865151  # This value is empirical. (Encoder Scale Factor)
-        self.w_seperation = 10  # This value is empirical. (Wheel seperation)
+        self.wheel_separation = 10  # This value is empirical. (Wheel seperation)
         self.grid = 40  # Grid value for rounding purposes
         
         self.pos_y = coordinate.y * self.grid  # Position y in cm
         self.pos_x = coordinate.x * self.grid  # Position x in cm
-        
-        self.l_motor.position = 0  # Resetting motor position (left)
-        self.r_motor.position = 0  # Resetting motor position (right)
+
+        l_motor.position = 0  # Resetting motor position (left)
+        r_motor.position = 0  # Resetting motor position (right)
         
         self.l_motor_x = 0  # Calculation variable
         self.r_motor_x = 0  # Calculation variable
@@ -34,7 +33,7 @@ class Odometry:
         displacement = (l_motor_delta + r_motor_delta) * self.esf / 2  
         
         # Calc. of rotation
-        rot_calc = (l_motor_delta - r_motor_delta) * self.esf / self.w_seperation  
+        rot_calc = (l_motor_delta - r_motor_delta) * self.esf / self.wheel_separation
         
         # Reassigning motor_x for next calculation
         self.l_motor_x = l_motor.position  
